@@ -13,4 +13,4 @@ export const apiSecuredPath = "secured";
 export const apiUrl = apiServerUrl+":"+apiServerPort+"/"+apiBasePath;
 export const apiSecureUrl = apiServerUrl + ":" + apiServerPort + "/" + apiBasePath + "/" + apiSecuredPath;
 
-export const providerAppUrl = "http://localhost:4200";
+export const providerAppUrl = "http://54.161.216.233:4200";
