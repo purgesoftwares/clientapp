@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Router } from '@angular/router';
 import {ToasterModule, ToasterService} from 'angular2-toaster';
+import * as globals from './../globals';
 /**
 *	This class represents the lazy loaded SignupComponent.
 */
@@ -21,6 +22,7 @@ export class SignupComponent {
 	user: any= {};
 	guser: any= {};
 	objThis: any= {};
+	globals: any= {};
 	message: any= {};
 	mess = false;
 	loading = false;
@@ -30,6 +32,7 @@ export class SignupComponent {
 	constructor( private http : Http,
 				private router: Router, toasterService: ToasterService ) {
 		this.toasterService = toasterService;
+		this.globals = globals;
 		FB.init({
             appId      : '379633659081437',
             cookie     : false,  // enable cookies to allow the server to access

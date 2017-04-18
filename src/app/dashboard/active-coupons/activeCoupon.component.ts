@@ -4,14 +4,15 @@ import { Router } from '@angular/router';
 import {ToasterModule, ToasterService} from 'angular2-toaster';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/forkJoin'
+import * as globals from './../../globals'; 
 
 @Component({
 	moduleId: module.id,
-	selector: 'previous-coupon-cmp',
-	templateUrl: 'previousCoupon.component.html'
+	selector: 'active-coupon-cmp',
+	templateUrl: 'activeCoupon.component.html'
 })
 
-export class PreviousCouponComponent {
+export class ActiveCouponComponent {
 	coupons;
 	pager: any = {};
 	terms:string = '';
@@ -33,7 +34,7 @@ export class PreviousCouponComponent {
 
 	ngOnInit() {
 		
-		this.http.get('http://54.161.216.233:8090/api/secured/user/current-customer?access_token=' + this.token)
+		this.http.get(globals.apiSecureUrl + '/user/current-customer?access_token=' + this.token)
   				.map(res => res.json())
   				.catch(e => {
 					console.log(e);
@@ -71,7 +72,7 @@ export class PreviousCouponComponent {
 
 
   		var thisObj = this;
-		this.http.get('http://54.161.216.233:8090/api/secured/purchased-package/previous?access_token=' + this.token)
+		this.http.get('http://54.161.216.233:8090/api/secured/purchased-package/active?access_token=' + this.token)
   				.map(res => res.json())
   				.subscribe(
   					data => { 

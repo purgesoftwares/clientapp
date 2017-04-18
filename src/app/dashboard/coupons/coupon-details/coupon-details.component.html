@@ -16,6 +16,12 @@
                         <td>Coupon Number :</td>
                         <td>{{ hash(model.couponNumber) }}</td>
                     </tr>
+                    
+                    <tr>
+                        <td>Coupon Code :</td>
+                        <td>{{ model.couponCode }}</td>
+                    </tr>
+
                     <tr *ngIf="model.couponPackage" >
                         <td>Price :</td>
                         <td>{{ model.couponPackage.price }}</td>
@@ -44,6 +50,7 @@
                                    <th>Coupon Code</th>
                                    <th>Provider Name </th>
                                    <th>Coupon Address </th>
+                                   <th>Status </th>
                                    <th> Direction </th>
                                    <th> QR Code </th>
                                 </tr>
@@ -54,6 +61,8 @@
                                     <td>{{ coupon.provider?.provider_name }}</td>
                                     <td>{{ coupon.address?.address1 }} {{coupon.address?.address2}} {{coupon.address?.city}} {{coupon.address?.postalCode}} {{coupon.address?.country}}
                                     </td>
+                                    <td *ngIf="coupon.used && coupon.used !=0" > Used </td>
+                                    <td *ngIf="!coupon.used || coupon.used == 0" > Not Used </td>
 
                                     <td>
                                         <a (click) = direction(coupon.providerId) >

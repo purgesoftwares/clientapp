@@ -2,12 +2,12 @@
     <div class="row">
         <div class="col-xl-12">
             <h1 class="page-header">
-                Products
+                Active Tours
             </h1>
         </div>
     </div>
 
-    <div class="card card-block" style="width: 450px; margin: auto;">
+    <!-- <div class="card card-block" style="width: 450px; margin: auto;">
         <form (submit)="search(term.value)">
             <div class="search-group input-group">
                 <input #term (keyup)="search(term.value)" [value]="terms" class="form-control" placeholder="Search" autofocus>
@@ -16,46 +16,38 @@
             </span>
             </div>
         </form>
-    </div>
-
-    <button class="pull-right btn btn-primary" (click) = "add()">Add</button>
+    </div> -->
     
-    <!-- <div *ngIf="mess"  class="alert alert-danger">{{message}}</div>
-    <div *ngIf="succ"  class="alert alert-success">{{message}}</div> -->
+    <div *ngIf="mess"  class="alert alert-danger">{{message}}</div>
+    <div *ngIf="succ"  class="alert alert-success">{{message}}</div>
     
     <div class="table-responsive">
              <table class="table table-hover table-striped">
                  <thead>
                      <tr>
-                         <th>Product Name</th>
-                         <th>Type</th>
+                         <th>Coupon Number</th>
                          <th>Price($)</th>
-                         <th>Category</th>
-                         <th>Description</th>
-                         <th>Create On</th>
-                         <th colspan="3" >Actions</th>
+                         <th>Radius</th>
+                         <th>Active Time</th>
+                         <th>View</th>
+                         
+                         <!-- <th>Actions</th> -->
                   </tr>
                  </thead>
-                 <tbody *ngFor="let product of products">
-                    <tr>
+                 <tbody *ngFor="let coupon of coupons">
+                    <tr (click) = viewDetails(coupon.id) >
                         
-                        <td >{{ product.productName }}</td>
-                        <td>{{ product.productType }}</td>
-                        <td>{{ product.price }}</td>
-                        <td>{{ product.productCategory }}</td>
-                        <td>{{ product.description }}</td>
-                        <td>{{ product.createDate | date}}</td>
-                        <td >
-                          <button (click) = "edit(product.id)" class="btn btn-default">Edit</button>
-                          <button (click) = "delete(product.id)" class="btn btn-danger">Delete</button>
-                        </td>
-                    </tr>
-                </tbody> 
-                <tbody *ngIf="!products || !products.length" >
-                    <tr>
-                        
-                        <td colspan="7">There is no products now!
-                        </td>
+                        <td>{{ hash(coupon.couponNumber) }}</td>
+                        <td>{{ coupon.couponPackage.price }}</td>
+                        <td>{{ coupon.couponPackage.radius }}</td>
+                        <td>{{ coupon.endTime | date }}</td>
+                        <th *ngIf="isJoinedFriends" >{{coupon.count}}</th>
+                        <td><button (click) = viewDetails(coupon.id) class="btn btn-default"> View </button></td>
+                        <!-- <td><button (click) = "view(coupon.id, coupon.couponCode, coupon.couponNumber, coupon.price, coupon.providerId, coupon.used, coupon.availability, coupon.startTime, coupon.endTime)" class="btn btn-primary">View</button></td> -->
+                       <!--  <td><button (click) = termsConditions(coupon.id) class="btn btn-primary">Buy</button></td>
+                        <td>
+                          <button (click) = "joinFriend(coupon.id, coupon.couponNumber)" class="btn btn-primary">Join Friend</button>
+                        </td> -->
                     </tr>
                 </tbody> 
              </table>

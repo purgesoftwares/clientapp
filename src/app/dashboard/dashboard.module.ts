@@ -22,6 +22,7 @@ import { ThankYouModule } from './coupons/thank-you/thank-you.module';
 import { DirectionModule } from './direction/direction.module';
 import { FeedbackModule } from './feedback/feedback.module';
 import { QrcodeModule } from './qrcode/qrcode.module';
+import { ActiveCouponModule } from './active-coupons/activeCoupon.module';
 
 import { DashboardComponent } from './dashboard.component';
 
@@ -52,7 +53,8 @@ import {SidebarComponent} from '../shared/index';
         ThankYouModule,
         DirectionModule,
         FeedbackModule,
-        QrcodeModule
+        QrcodeModule,
+        ActiveCouponModule
     ],
     declarations: [DashboardComponent, TopNavComponent, SidebarComponent],
     exports: [DashboardComponent, TopNavComponent, SidebarComponent]
