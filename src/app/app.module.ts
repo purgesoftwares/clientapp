@@ -7,6 +7,7 @@ import { RouterModule, Routes  } from '@angular/router';
 import { HttpModule, Http } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FacebookModule } from 'ngx-facebook';
 import { routes } from './app.routes';
 
 import { LoginModule } from './login/login.module';
@@ -58,6 +59,7 @@ import { ExtendedHttpService } from './extended-http.service';
 		ContactUsModule,
 		SharedModule.forRoot(),
 		MaterialModule.forRoot(),
+		FacebookModule.forRoot(),
 		ToasterModule
   ],
   declarations: [AppComponent, FrontTopNavComponent, FooterComponent],

@@ -6,12 +6,16 @@ import { ActivatedRoute } from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/forkJoin';
 import {RatingModule, Rating} from "ng2-rating";
+import * as globals from './../../globals';
+import {UploadService} from './../../upload.service';
+
+declare const FB:any;
 
 @Component({
 	moduleId: module.id,
 	selector: 'feedback-cmp',
 	templateUrl: 'feedback.component.html',
-	providers : [ Rating ]
+	providers : [ Rating, UploadService ]
 })
 
 export class FeedbackComponent {
@@ -19,6 +23,7 @@ export class FeedbackComponent {
 	coupon: any= {};
 	provider: any= {};
 	message: any= {};
+	globals: any= {};
 	mess = false;
 	loading = false;
 	couponId = 0;
@@ -30,8 +35,34 @@ export class FeedbackComponent {
 
 	constructor( private http : Http,
 				private router: Router, toasterService: ToasterService,
-				private route: ActivatedRoute ) {
+				private route: ActivatedRoute,
+				private service:UploadService ) {
 		this.toasterService = toasterService;
+		this.globals = globals;
+		this.service.progress.subscribe(
+		      data => {
+		        console.log('progress = '+data);
+		      });
+
+		FB.init({
+            appId      : '422149271493185',
+            cookie     : false,  // enable cookies to allow the server to access
+                                // the session
+            xfbml      : true,  // parse social plugins on this page
+            version    : 'v2.5' // use graph api version 2.5
+        });
+
+	}
+
+	onChange(event) {
+	    console.log('onChange');
+	    var files = event.srcElement.files;
+	    console.log(files);
+	    this.service.makeFileRequest(this.globals.fileServerAppUrl+"/upload/", [], files).subscribe((filename) => {
+	      console.log('sent');
+	      console.log(filename);
+	      this.model.filename = filename;
+	    });
 	}
 
 	ngOnInit() {
@@ -158,6 +189,37 @@ export class FeedbackComponent {
 				() => console.log("complete")
 			);
 	}
+
+	onFacebookShareClick() {
+		/*FB.getLoginStatus(response => {
+            this.statusChangeCallback(response);
+        });
+		*/
+		var objThis = this;
+
+		FB.ui({
+		  method: 'share',
+		  quote: objThis.model.feedback,
+		  href: objThis.globals.frontAppUrl,
+		}, function(response){ 
+			objThis.model.file = response;
+			});
+
+    }
+
+	onFacebookImageShareClick() {
+		
+		var objThis = this;
+		if(objThis.model.filename != null && objThis.model.filename!=""){
+
+			FB.ui({
+			  method: 'share',
+			  quote: objThis.model.pictureDescription,
+			  href: this.globals.fileServerAppUrl + "/files/" + objThis.model.filename,
+			}, function(response){ console.log(response); });
+		}
+
+    }
 
     popToast() {
         this.toasterService.pop('success', 'Args Title', 'Args Body');

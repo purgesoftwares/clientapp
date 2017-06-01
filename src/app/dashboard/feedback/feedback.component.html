@@ -41,7 +41,30 @@
                 <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !feedback.valid }">
                     <label for="feedback">What you think about {{provider.providerName}}?</label>
                     <textarea class="form-control" name="feedback" [(ngModel)]="model.feedback" #feedback="ngModel" required placeholder="Write some feedback about {{provider.providerName}}." > </textarea>
+
                     <div *ngIf="f.submitted && !feedback.valid" class="help-block">Feedback is required</div>
+
+                    <a href="javascript:void(0);" class="btn btn-social btn-facebook" style="font-size: 1em; width: 35px;height: 35px; margin: 10px;" (click)="onFacebookShareClick()">
+                        <i class="fa fa-facebook fa-fw"></i>
+                    </a>
+
+                </div>
+
+            <h3>Share Picture</h3>
+
+                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !feedback.valid }">
+                    <label for="picture">Share your picture in {{provider.providerName}}?</label>
+                    <input type="file" class="form-control" name="picture" [(ngModel)]="model.picture" #picture="ngModel" (change)="onChange($event)" />
+                   
+                </div>
+
+                <div class="form-group" >
+                    <textarea class="form-control" name="pictureDescription" [(ngModel)]="model.pictureDescription" #pictureDescription="ngModel" placeholder="Write something about the picture." > </textarea>
+                   
+                    <a href="javascript:void(0);" class="btn btn-social btn-facebook" style="font-size: 1em; width: 35px;height: 35px; margin: 10px;" (click)="onFacebookImageShareClick()">
+                        <i class="fa fa-facebook fa-fw"></i>
+                    </a>
+
                 </div>
                 <div class="form-group">
                     <button [disabled]="loading" class="btn btn-primary">Save</button>
